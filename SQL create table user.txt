@@ -1,0 +1,181 @@
+ How do you rename the enrollment_date column to start_date?
+SP2-0734: unknown command beginning ": How do y..." - rest of line ignored.
+SQL> alter table stu10 rename column
+  2  );
+)
+*
+ERROR at line 2:
+ORA-00904: : invalid identifier
+
+
+SQL> desc stu10;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STU_ID                                             NUMBER(5)
+ FIRST_NAME                                         VARCHAR2(100)
+ LAST_NAME                                          VARCHAR2(30)
+ DATE_OF_BIRTH                                      VARCHAR2(10)
+ ENROLL_DATE                                        VARCHAR2(10)
+
+SQL> alter table stu10 rename column  enroll_date to start_date;
+
+Table altered.
+
+SQL> desc stu10;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ STU_ID                                             NUMBER(5)
+ FIRST_NAME                                         VARCHAR2(100)
+ LAST_NAME                                          VARCHAR2(30)
+ DATE_OF_BIRTH                                      VARCHAR2(10)
+ START_DATE                                         VARCHAR2(10)
+
+SQL> How do you create a courses table with columns course_id (primary key), course_name, and course_start_date?
+SP2-0734: unknown command beginning "How do you..." - rest of line ignored.
+SQL> create table courses
+  2  (
+  3   course_id number(10) primary key,
+  4   course_name varchar2(20),
+  5  course_start_date varchar2(30)
+  6  );
+
+Table created.
+
+SQL> How do you add a course_id column to the students table and create a foreign key constraint referencing the courses table?
+SP2-0734: unknown command beginning "How do you..." - rest of line ignored.
+SQL> alter table stu10 add course_id number(20) references coureses( course_id);
+alter table stu10 add course_id number(20) references coureses( course_id)
+                                                      *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL>SQL> create table user
+  2  (
+  3  user_id number(5) primary key,
+  4  email varchar2(30),
+  5  name varchar2(30)
+  6  );
+create table user
+             *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> drop table user;
+drop table user
+           *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> create table using
+  2  (
+  3  user_id number(5) primary key,
+  4  email varchar2(30),
+  5  name varchar2(30)
+  6  );
+
+Table created.
+
+SQL> create table order
+  2  (
+  3  order_no number(5),
+  4  user_id number(5) references using(user_id),
+  5  product_sky number(5) primary key
+  6  );
+create table order
+             *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> create table ord
+  2  (
+  3  order_no number(5),
+  4  user_id number(5) references using(user_id),
+  5  product_sky number(5) primary key
+  6  );
+
+Table created.
+
+SQL> create table books
+    (
+    product_sky number(5) references ord(product_sky),
+    title varchar2(20),
+    price number(5)
+    );
+
+Table created.
+
+SQL> create table stu10
+  2  (
+  3  stu_id number(5),
+  4  first_name varchar2(30),
+  5  last_name varchar2(30),
+  6  date_of_birth varchar2(10),
+  7  enroll_date varchar2(10)
+  8  );
+How do you insert a student with student_id 1, first_name 'John', last_name 'Doe', date_of_birth '2000-01-15', and enrollment_date '2020-09-01' into the students table?
+SP2-0734: unknown command beginning ": How do y..." - rest of line ignored.
+SQL> insert into stud10 values(1,'John','Doe', '2000-01-15', '2020-09-01');
+insert into stud10 values(1,'John','Doe', '2000-01-15', '2020-09-01')
+            *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> insert into stu10 values(1,'John','Doe', '2000-01-15', '2020-09-01');
+
+1 row created.
+
+SQL> select*from stu10;
+
+    STU_ID FIRST_NAME                     LAST_NAME
+---------- ------------------------------ ------------------------------
+DATE_OF_BI ENROLL_DAT
+---------- ----------
+         1 John                           Doe
+2000-01-15 2020-09-01
+
+
+SQL> : How do you insert another student with student_id 2, first_name 'Jane', last_name 'Smith', date_of_birth '1999-11-23', and enrollment_date '2019-09-01'?
+SP2-0734: unknown command beginning ": How do y..." - rest of line ignored.
+SQL> insert into stu10 values(2, 'Jane', 'Smith', '1999-11-23', '2019-09-01');
+
+1 row created.
+
+SQL> select*from stu10;
+
+    STU_ID FIRST_NAME                     LAST_NAME
+---------- ------------------------------ ------------------------------
+DATE_OF_BI ENROLL_DAT
+---------- ----------
+         1 John                           Doe
+2000-01-15 2020-09-01
+
+         2 Jane                           Smith
+1999-11-23 2019-09-01
+
+
+SQL> How do you add a new column email to the students table?
+SP2-0734: unknown command beginning "How do you..." - rest of line ignored.
+SQL> alter table stu10 add email varchar2(30);
+
+Table altered.
+
+SQL> How do you modify the first_name column to increase its length to 100 characters?
+SP2-0734: unknown command beginning "How do you..." - rest of line ignored.
+SQL> alter table stu10 modify  first_name varchar2(100);
+
+Table altered.
+
+SQL> How do you rename the enrollment_date column to start_date?
+SP2-0734: unknown command beginning "How do you..." - rest of line ignored.
+SQL> : How do you drop the email column from the students table?
+SP2-0734: unknown command beginning ": How do y..." - rest of line ignored.
+SQL> alter table stu10 drop column  email;
+
+Table altered.
+
+SQL>

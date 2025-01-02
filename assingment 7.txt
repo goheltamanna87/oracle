@@ -1,0 +1,64 @@
+create table student55
+(
+sitno number(6),
+name varchar2(25),
+mark number(3)
+);
+
+create or replace trigger trg_uppercase_name
+before insert or update on student55
+for each row
+begin
+:new.name:=upper(:new.name);
+case
+  when inserting then
+dbms_output.put_line('record inserted');
+when updating then
+dbms_output.put_line('record update');
+end case;
+end;
+/
+
+SQL> set serveroutput on
+SQL> create table student55
+  2  (
+  3  sitno number(6),
+  4  name varchar2(25),
+  5  mark number(3)
+  6  );
+
+Table created.
+
+SQL> create or replace trigger trg_uppercase_name
+  2  before insert or update on student55
+  3  for each row
+  4  begin
+  5  :new.name:=upper(:new.name);
+  6  case
+  7    when inserting then
+  8  dbms_output.put_line('record inserted');
+  9  when updating then
+ 10  dbms_output.put_line('record update');
+ 11  end case;
+ 12  end;
+ 13  /
+
+Trigger created.
+
+SQL> insert into student55 values(01,'tamanna',98);
+record inserted
+
+1 row created.
+
+SQL> select * from student55;
+
+     SITNO NAME                            MARK
+---------- ------------------------- ----------
+         1 TAMANNA                           98
+
+SQL> insert into student55 values(02,'janvia',98);
+record inserted
+
+1 row created.
+
+SQL>

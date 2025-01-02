@@ -1,0 +1,56 @@
+create table client_master59
+(
+client_no varchar(6)primary key check(client_no like 'c%'),
+name varchar(20)not null,
+address1 varchar(30),
+address2 varchar(30),
+city varchar(15),
+state varchar(15),
+pincode numeric(6),
+bal_due numeric(10,2)
+);
+
+create table product_master59
+(
+product_no varchar(6)primary key check(product_no like 'p%'),
+description varchar(5)not null,
+profit_percent numeric(5,2)not null,
+unit_measure varchar(10)not null,
+qty_on_hand numeric(8)not null,
+reorder_lvl numeric(8)not null,
+sell_price numeric(8,2)not null check(sell_price>0),
+cost_price numeric(8,2)not null check(cost_price>0)
+);
+
+create table salesman_master59 
+(
+salesman_no varchar(6)primary key check(salesman_no like's%'),
+salesman_name varchar(20)not null,
+address1 varchar(30)not null,
+address2 varchar(30),
+city varchar(20),
+pincode varchar(6),
+state varchar(20),
+sal_amt numeric(8,2)not null check(sal_amt>0),
+Tgt_to_get numeric(6,2)not null check(Tgt_to_get>0),
+Ytd_sales numeric(6,2)not null,
+remarks varchar(60)
+);
+
+create table sales_order
+(
+s_order_no varchar(6)(6)primary key check(salesman_no like'o%'),
+s_order_date date,
+client_no varchar(6)
+
+
+
+
+
+
+
+
+
+
+
+

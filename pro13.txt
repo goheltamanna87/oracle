@@ -1,0 +1,38 @@
+
+create table customers
+(
+      id number(3),
+      name varchar(20),
+      address varchar(30),
+      sal number(10)
+);
+
+insert all
+    into customers values(1,'tamanna','rajkot',35000)
+    into customers values(2,'avani','rajkot',30000)
+    into customers values(3,'urvisha','rajkot',35000)
+    into customers values(2,'janvi','rajkot',50000)
+    select * from dual;
+
+declare
+c_id customers.id% type :=2;
+c_name customers.name% type;
+c_addres customers.address% type;
+begin
+select name,address into c_name,c_addres from customers where id=c_id;
+dbms_output.put_line('name:'||c_name);
+dbms_output.put_line('address:'||c_addres);
+
+exception
+when no_data_found then
+dbms_output.put_line('no such customer!!');
+
+when too_many_rows then
+dbms_output.put_line('the database returns more than one customer');
+
+when others then
+dbms_output.put_line('Error!');
+end;
+/
+
+

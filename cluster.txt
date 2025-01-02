@@ -1,0 +1,41 @@
+
+SQL*Plus: Release 12.1.0.2.0 Production on Wed Sep 18 20:10:08 2024
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Wed Sep 18 2024 20:09:03 -07:00
+
+Connected to:
+Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+
+SQL> create cluster emp_dept(deptno number(2));
+
+Cluster created.
+
+SQL> create index i1 on cluster emp_dept;
+
+Index created.
+
+SQL> create table dept
+  2  (
+  3  deptno number(2),
+  4  name varchar2(20),
+  5  loc varchar2(20))
+  6  cluster emp_dept(deptno);
+
+Table created.
+
+SQL> create table emp
+  2  (
+  3  empno number(5),
+  4  name varchar2(20),
+  5  sal number(10,2),
+  6  deptno number(2))
+  7  cluster emp_dept(deptno);
+
+Table created.
+
+SQL>

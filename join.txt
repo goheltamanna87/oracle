@@ -1,0 +1,383 @@
+create table student
+  2  (
+  3  id number(3),
+  4  admission_no number(5),
+  5  first_name varchar2(10),
+  6  last_name varchar2(10),
+  7  age number(3),
+  8  city varchar2(20)
+  9  );
+create table student
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> drop table student;
+
+Table dropped.
+
+SQL> create table student
+  2  (
+  3  id number(3),
+  4  admission_no number(5),
+  5  first_name varchar2(10),
+  6  last_name varchar2(10),
+  7  age number(3),
+  8  city varchar2(20)
+  9  );
+
+Table created.
+
+SQL> create table fee
+  2  (
+  3  admission_no number(5),
+  4  course varchar2(30),
+  5  amount_paid number(6)
+  6  );
+
+Table created.
+
+SQL> insert all
+  2  into student values(1,'tamanna','gohel',18,'rajkot')
+  3  into student values(2,'urvisha','mokariya',20,'rajkot')
+  4  into student values(3,'janvi','katudiya',18,'rajkot')
+  5  into student values(4,'avani','jijariya',18,'rajkot')
+  6  into student values(5,'semina','ligadiya',18,'rajkot')
+  7  into student values(6,'jenshi','sojitra',19,'rajkot')
+  8  into student values(7,'priya','parmar',19,'rajkot')
+  9  into student values(8,'doli','vaja',19,'rajkot')
+ 10  select*from dual;
+into student values(1,'tamanna','gohel',18,'rajkot')
+     *
+ERROR at line 2:
+ORA-00947: not enough values
+
+
+SQL> insert all
+  2  into student values(1,3354,'tamanna','gohel',18,'rajkot')
+  3  into student values(2,2135,'urvisha','mokariya',20,'rajkot')
+  4  into student values(3,4321,'janvi','katudiya',18,'rajkot')
+  5  into student values(4,4213,'avani','jijariya',18,'rajkot')
+  6  into student values(5,5112,'semina','ligadiya',18,'rajkot')
+  7  into student values(6,6113,'jenshi','sojitra',19,'rajkot')
+  8  into student values(7,7555,'priya','parmar',19,'rajkot')
+  9  into student values(8,8345,'doli','vaja',19,'rajkot')
+ 10  select*from dual;
+
+8 rows created.
+
+SQL> select * from student;
+
+        ID ADMISSION_NO FIRST_NAME LAST_NAME         AGE CITY
+---------- ------------ ---------- ---------- ---------- --------------------
+         1         3354 tamanna    gohel              18 rajkot
+         2         2135 urvisha    mokariya           20 rajkot
+         3         4321 janvi      katudiya           18 rajkot
+         4         4213 avani      jijariya           18 rajkot
+         5         5112 semina     ligadiya           18 rajkot
+         6         6113 jenshi     sojitra            19 rajkot
+         7         7555 priya      parmar             19 rajkot
+         8         8345 doli       vaja               19 rajkot
+
+8 rows selected.
+
+SQL> insert all
+  2  into fee values(3354,'java',10000)
+  3  into fee values(7555,'android',15000)
+  4  into fee values(4321,'python',20000)
+  5  into fee values(8345,'c++',12000)
+  6  into fee values(5112,'sql',25000)
+  7  select*from dual;
+
+5 rows created.
+
+SQL> select*from fee;
+
+ADMISSION_NO COURSE                         AMOUNT_PAID
+------------ ------------------------------ -----------
+        3354 java                                 10000
+        7555 android                              15000
+        4321 python                               20000
+        8345 c++                                  12000
+        5112 sql                                  25000
+
+SQL> select student.admission_no,student.first_name,student.last_name,fee.course,fee.amount_paid
+  2  from student inner join fee on student.admission_no=fee.admission_no;
+
+ADMISSION_NO FIRST_NAME LAST_NAME  COURSE                         AMOUNT_PAID
+------------ ---------- ---------- ------------------------------ -----------
+        3354 tamanna    gohel      java                                 10000
+        4321 janvi      katudiya   python                               20000
+        5112 semina     ligadiya   sql                                  25000
+        7555 priya      parmar     android                              15000
+        8345 doli       vaja       c++                                  12000
+
+SQL> select student.admission_no,student.first_name,student.last_name,fee.course,fee.amount_paid
+  2  from student left outer join fee on student.admission_no=fee.admission_no;
+
+ADMISSION_NO FIRST_NAME LAST_NAME  COURSE                         AMOUNT_PAID
+------------ ---------- ---------- ------------------------------ -----------
+        3354 tamanna    gohel      java                                 10000
+        7555 priya      parmar     android                              15000
+        4321 janvi      katudiya   python                               20000
+        8345 doli       vaja       c++                                  12000
+        5112 semina     ligadiya   sql                                  25000
+        4213 avani      jijariya
+        2135 urvisha    mokariya
+        6113 jenshi     sojitra
+
+8 rows selected.
+
+SQL> select student.admission_no,student.first_name,student.last_name,fee.course,fee.amount_paid
+  2  from student right outer join fee on student.admission_no=fee.admission_no;
+
+ADMISSION_NO FIRST_NAME LAST_NAME  COURSE                         AMOUNT_PAID
+------------ ---------- ---------- ------------------------------ -----------
+        3354 tamanna    gohel      java                                 10000
+        4321 janvi      katudiya   python                               20000
+        5112 semina     ligadiya   sql                                  25000
+        7555 priya      parmar     android                              15000
+        8345 doli       vaja       c++                                  12000
+
+SQL> select student.admission_no,student.first_name,student.last_name,fee.course,fee.amount_paid
+  2  from student full outer join fee on student.admission_no=fee.admission_no;
+
+ADMISSION_NO FIRST_NAME LAST_NAME  COURSE                         AMOUNT_PAID
+------------ ---------- ---------- ------------------------------ -----------
+        3354 tamanna    gohel      java                                 10000
+        2135 urvisha    mokariya
+        4321 janvi      katudiya   python                               20000
+        4213 avani      jijariya
+        5112 semina     ligadiya   sql                                  25000
+        6113 jenshi     sojitra
+        7555 priya      parmar     android                              15000
+        8345 doli       vaja       c++                                  12000
+
+8 rows selected.
+
+SQL> select student.admission_no,student.first_name,student.last_name,fee.course,fee.amount_paid
+
+self join
+
+SQL*Plus: Release 12.1.0.2.0 Production on Sun Sep 8 19:21:34 2024
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Fri Sep 06 2024 03:41:03 -07:00
+
+Connected to:
+Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+
+SQL> create table student
+  2      (
+  3     id number(3),
+  4     admission_no number(5),
+  5     first_name varchar2(10),
+  6      last_name varchar2(10),
+  7     age number(3),
+  8     city varchar2(20)
+  9     );
+create table student
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> create table student
+  2  (
+  3  id number(3),
+  4  admission_no number(5),
+  5  first_name varchar2(10),
+  6  last_name varchar2(10),
+  7  age number(3),
+  8  city varchar2(20)
+  9  );
+create table student
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> drop table student
+  2
+SQL> drop table student;
+
+Table dropped.
+
+SQL> create table student
+  2  (
+  3  id number(3),
+  4  admission_no number(5),
+  5  first_name varchar2(10),
+  6  last_name varchar2(10),
+  7  age number(3),
+  8  city varchar2(20)
+  9  );
+
+Table created.
+
+SQL> insert all
+  2    2  into student values(1,3354,'tamanna','gohel',18,'rajkot')
+  3    3  into student values(2,2135,'urvisha','mokariya',20,'rajkot')
+  4    4  into student values(3,4321,'janvi','katudiya',18,'rajkot')
+  5    5  into student values(4,4213,'avani','jijariya',18,'rajkot')
+  6    6  into student values(5,5112,'semina','ligadiya',18,'rajkot')
+  7    7  into student values(6,6113,'jenshi','sojitra',19,'rajkot')
+  8    8  into student values(7,7555,'priya','parmar',19,'rajkot')
+  9    9  into student values(8,8345,'doli','vaja',19,'rajkot')
+ 10   10  select*from dual;
+  2  into student values(1,3354,'tamanna','gohel',18,'rajkot')
+  *
+ERROR at line 2:
+ORA-00905: missing keyword
+
+
+SQL> insert all
+  2  into student values(1,3354,'tamanna','gohel',18,'rajkot')
+  3  into student values(2,2135,'urvisha','mokariya',20,'rajkot')
+  4  into student values(3,4321,'janvi','katudiya',18,'rajkot')
+  5  into student values(4,4213,'avani','jijariya',18,'rajkot')
+  6  into student values(5,5112,'semina','ligadiya',18,'rajkot')
+  7  into student values(6,6113,'jenshi','sojitra',19,'rajkot')
+  8  into student values(7,7555,'priya','parmar',19,'rajkot')
+  9  into student values(8,8345,'doli','vaja',19,'rajkot')
+ 10  select*from dual;
+
+8 rows created.
+
+SQL> select s1. first_name,s2.last,s2.city from student s1, student s2 where s1.id<>s2.id and s1
+  2  select s1. first_name,s2.last,s2.city from student s1, student s2 where
+  3
+SQL> select s1. first_name,s2.last,s2.city from student s1, student s2 where
+  2  s1.id<>s2.id and s1.city=s2.city order by s2.city;
+select s1. first_name,s2.last,s2.city from student s1, student s2 where
+                      *
+ERROR at line 1:
+ORA-00904: "S2"."LAST": invalid identifier
+
+
+SQL> select s1. first_name,s2.last_name,s2.city from student s1, student s2 where
+  2  s1.id<>s2.id and s1.city=s2.city order by s2.city;
+
+FIRST_NAME LAST_NAME  CITY
+---------- ---------- --------------------
+doli       gohel      rajkot
+tamanna    vaja       rajkot
+jenshi     gohel      rajkot
+semina     gohel      rajkot
+avani      gohel      rajkot
+janvi      gohel      rajkot
+urvisha    gohel      rajkot
+doli       mokariya   rajkot
+priya      mokariya   rajkot
+jenshi     mokariya   rajkot
+semina     mokariya   rajkot
+
+FIRST_NAME LAST_NAME  CITY
+---------- ---------- --------------------
+avani      mokariya   rajkot
+janvi      mokariya   rajkot
+tamanna    mokariya   rajkot
+doli       katudiya   rajkot
+priya      katudiya   rajkot
+jenshi     katudiya   rajkot
+semina     katudiya   rajkot
+avani      katudiya   rajkot
+urvisha    katudiya   rajkot
+tamanna    katudiya   rajkot
+doli       jijariya   rajkot
+
+FIRST_NAME LAST_NAME  CITY
+---------- ---------- --------------------
+priya      jijariya   rajkot
+jenshi     jijariya   rajkot
+semina     jijariya   rajkot
+janvi      jijariya   rajkot
+urvisha    jijariya   rajkot
+tamanna    jijariya   rajkot
+doli       ligadiya   rajkot
+priya      ligadiya   rajkot
+jenshi     ligadiya   rajkot
+avani      ligadiya   rajkot
+janvi      ligadiya   rajkot
+
+FIRST_NAME LAST_NAME  CITY
+---------- ---------- --------------------
+urvisha    ligadiya   rajkot
+tamanna    ligadiya   rajkot
+doli       sojitra    rajkot
+priya      sojitra    rajkot
+semina     sojitra    rajkot
+avani      sojitra    rajkot
+janvi      sojitra    rajkot
+urvisha    sojitra    rajkot
+tamanna    sojitra    rajkot
+doli       parmar     rajkot
+jenshi     parmar     rajkot
+
+FIRST_NAME LAST_NAME  CITY
+---------- ---------- --------------------
+semina     parmar     rajkot
+avani      parmar     rajkot
+janvi      parmar     rajkot
+urvisha    parmar     rajkot
+tamanna    parmar     rajkot
+priya      vaja       rajkot
+jenshi     vaja       rajkot
+semina     vaja       rajkot
+avani      vaja       rajkot
+janvi      vaja       rajkot
+urvisha    vaja       rajkot
+
+FIRST_NAME LAST_NAME  CITY
+---------- ---------- --------------------
+priya      gohel      rajkot
+
+56 rows selected.
+
+SQL> drop table student;
+
+Table dropped.
+
+SQL> create table student
+  2  (
+  3  id number(3),
+  4  admission_no number(5),
+  5  first_name varchar2(10),
+  6  last_name varchar2(10),
+  7  age number(3),
+  8  city varchar2(20)
+  9  );
+
+Table created.
+
+SQL> insert all
+  2  into student values(1,3354,'tamanna','gohel',18,'rajkot')
+  3  into student values(2,2135,'urvisha','mokariya',20,'rajkot')
+  4  select*from dual;
+
+2 rows created.
+
+SQL> select s1. first_name,s2.last_name,s2.city from student s1, student s2 where
+  2  s1.id<>s2.id and s1.city=s2.city order by s2.city;
+
+FIRST_NAME LAST_NAME  CITY
+---------- ---------- --------------------
+tamanna    mokariya   rajkot
+urvisha    gohel      rajkot
+
+SQL> select s1. first_name,s2.last_name,s2.city from student s1, student s2 where
+  2  s1.id<>s2.id and s1.city=s2.city order by s2.city;
+
+FIRST_NAME LAST_NAME  CITY
+---------- ---------- --------------------
+tamanna    mokariya   rajkot
+urvisha    gohel      rajkot
+
+SQL>
+
+

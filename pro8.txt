@@ -1,0 +1,16 @@
+//(8)switch case...
+
+declare
+          grade char(1):='b';
+begin
+         case grade
+when 'a' then dbms_output.put_line('Excellent');
+when 'b' then dbms_output.put_line('very good');
+when 'c' then dbms_output.put_line('good');
+when 'd' then dbms_output.put_line('average');
+when 'e' then dbms_output.put_line('passed with grace');
+else dbms_output.put_line('failed');
+end case;
+end;
+/
+

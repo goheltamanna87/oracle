@@ -1,0 +1,148 @@
+SQL*Plus: Release 12.1.0.2.0 Production on Wed Sep 11 08:01:24 2024
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Tue Sep 10 2024 16:33:11 +05:30
+
+Connected to:
+Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+
+SQL> CREATE TABLE employees (
+  2      employee_id INT,
+  3      first_name VARCHAR2(50),
+  4      last_name VARCHAR2(50),
+  5      email VARCHAR2(100),
+  6      hire_date DATE,
+  7      salary NUMBER(8, 2),
+  8      department_id INT
+  9  );
+CREATE TABLE employees (
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> drop table employees;
+
+Table dropped.
+
+SQL> CREATE TABLE employees (
+  2      employee_id INT,
+  3      first_name VARCHAR2(50),
+  4      last_name VARCHAR2(50),
+  5      email VARCHAR2(100),
+  6      hire_date DATE,
+  7      salary NUMBER(8, 2),
+  8      department_id INT
+  9  );
+
+Table created.
+
+SQL> employee_id should be the primary key
+SP2-0734: unknown command beginning "employee_i..." - rest of line ignored.
+SQL> select * from employee_id should be the primary key
+  2
+SQL> select * from employee_id should be the primary key;
+select * from employee_id should be the primary key
+                                 *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> alter table employees modify employee_id int(10) primary key;
+alter table employees modify employee_id int(10) primary key
+                                            *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option
+
+
+SQL> alter table employees add primary key(employee_id);
+
+Table altered.
+
+SQL> alter table employees add unique (email);
+
+Table altered.
+
+SQL> alter table employees add not null (hire_date);
+alter table employees add not null (hire_date)
+                          *
+ERROR at line 1:
+ORA-00904: : invalid identifier
+
+
+SQL> alter table employees add notnull (hire_date);
+alter table employees add notnull (hire_date)
+                                  *
+ERROR at line 1:
+ORA-00902: invalid datatype
+
+
+SQL> ALTER TABLE employees ALTER COLUMN hire_date SET NOT NULL;
+ALTER TABLE employees ALTER COLUMN hire_date SET NOT NULL
+                      *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option
+
+
+SQL> ALTER TABLE employees hire_date SET NOT NULL;
+ALTER TABLE employees hire_date SET NOT NULL
+                      *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option
+
+
+SQL> alter table employees set notnull (hire_date);
+alter table employees set notnull (hire_date)
+                          *
+ERROR at line 1:
+ORA-02000: missing UNUSED keyword
+
+
+SQL> alter table employees modify  hire_date date not null;
+
+Table altered.
+
+SQL> alter table employees modify  salary NUMBER(8, 2) if <0;
+alter table employees modify  salary NUMBER(8, 2) if <0
+                                                  *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option
+
+
+SQL> alter table employees modify  salary NUMBER(8, 2) if salary<=0;
+alter table employees modify  salary NUMBER(8, 2) if salary<=0
+                                                  *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option
+
+
+SQL> alter table employees modify  salary NUMBER(8, 2) if salary<=0;
+alter table employees modify  salary NUMBER(8, 2) if salary<=0
+                                                  *
+ERROR at line 1:
+ORA-01735: invalid ALTER TABLE option
+
+
+SQL> select salary from employess where salary<=0;
+select salary from employess where salary<=0
+                   *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> select * from employess where salary<=0;
+select * from employess where salary<=0
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> alter table employees modify  salary NUMBER(8, 2) check(salary>0);
+
+Table altered.
+
+SQL>

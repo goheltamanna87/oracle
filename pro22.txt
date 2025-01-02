@@ -1,0 +1,34 @@
+create table emp
+(
+id number(5),
+name varchar(20),
+salary number(5)
+);
+insert all
+into emp values(1,'tamanna',30000)
+into emp values(2,'avni',25000)
+into emp values(3,'janvi',40000)
+select * from dual;
+
+22)
+create or replace trigger dml_tri
+before insert or update or delete on emp
+for each row
+  begin
+case
+    when inserting then
+    dbms_output.put_line('record inserted');
+    when updating then
+    dbms_output.put_line('record updated');
+    when deleting then
+    dbms_output.put_line('record deleted');
+   end case;
+   end;
+/
+Trigger created.
+
+
+SQL> update emp set name='tanu' where id='1';
+record updated
+
+1 row updated.

@@ -1,0 +1,280 @@
+
+SQL*Plus: Release 12.1.0.2.0 Production on Fri Sep 13 07:51:26 2024
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Fri Sep 13 2024 07:50:12 +05:30
+
+Connected to:
+Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(3)
+ ADMISSION_NO                                       NUMBER(4)
+ FIRST_NAME                                         VARCHAR2(10)
+ LAST_NAME                                          VARCHAR2(10)
+ AGE                                                NUMBER(3)
+ CITY                                               VARCHAR2(9)
+
+SQL> drop table student;
+
+Table dropped.
+
+SQL> create table student
+  2  (
+  3  s_id number(3) primary key,
+  4  s_name varchar(30),
+  5  city varchar(30) default 'rajkot'
+  6  );
+
+Table created.
+
+SQL> create table result
+   r_id number(3) primary key,
+  3  mark1 number(3),
+  4  mark2 number(3),
+  5  s_id number(3) references student(s_id)
+  6  );
+r_id number(3) primary key,
+*
+ERROR at line 2:
+ORA-00922: missing or invalid option
+
+
+SQL> create table result
+  2  (
+  3  r_id number(3) primary key,
+  4  mark1 number(3),
+  5  mark2 number(3),
+  6  s_id number(3) references student(s_id)
+  7  );
+
+Table created.
+
+SQL> insert all
+  2  into student values(1,'tamanna')
+  3  into student values(2,'urvisha')
+  4  into student values(3,'janvi')
+  5  into student values(4,'avani')
+  6  into student values(5,'semina')
+  7  select * from dual;
+into student values(1,'tamanna')
+     *
+ERROR at line 2:
+ORA-00947: not enough values
+
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ S_ID                                      NOT NULL NUMBER(3)
+ S_NAME                                             VARCHAR2(30)
+ CITY                                               VARCHAR2(30)
+
+SQL> insert all
+    into student values(1,'tamanna','rajkot')
+    into student values(2,'urvisha','rajkot')
+    into student values(3,'janvi','rajkot')
+  5  into student values(4,'avani','rajkot')
+  6  into student values(5,'semina','rajkot')
+  7  select * from dual;
+
+5 rows created.
+
+SQL> select *from student;
+
+      S_ID S_NAME                         CITY
+---------- ------------------------------ ------------------------------
+         1 tamanna                        rajkot
+         2 urvisha                        rajkot
+         3 janvi                          rajkot
+         4 avani                          rajkot
+         5 semina                         rajkot
+
+SQL> insert all
+  2  into student (r_id,mark1,mark2)values(6,98,99)
+  3  into student (r_id,mark1,mark2)values(7,90,91)
+  4  into student (r_id,mark1,mark2)values(8,90,95)
+  5  into student (r_id,mark1,mark2)values(9,97,87)
+  6  into student (r_id,mark1,mark2)values(10,93,94)
+  7  select * from dual;
+into student (r_id,mark1,mark2)values(6,98,99)
+                         *
+ERROR at line 2:
+ORA-00904: "MARK2": invalid identifier
+
+
+SQL> insert all
+  2  into result (r_id,mark1,mark2)values(6,98,99)
+  3  into result (r_id,mark1,mark2)values(7,90,91)
+  4  into result (r_id,mark1,mark2)values(8,90,95)
+  5  into result (r_id,mark1,mark2)values(9,97,87)
+  6  into result (r_id,mark1,mark2)values(10,93,94)
+  7  select * from dual;
+
+5 rows created.
+
+SQL> select*from result;
+
+      R_ID      MARK1      MARK2       S_ID
+---------- ---------- ---------- ----------
+         6         98         99
+         7         90         91
+         8         90         95
+         9         97         87
+        10         93         94
+
+SQL> update result set s_id=1;
+
+5 rows updated.
+
+SQL> select*from result;
+
+      R_ID      MARK1      MARK2       S_ID
+---------- ---------- ---------- ----------
+         6         98         99          1
+         7         90         91          1
+         8         90         95          1
+         9         97         87          1
+        10         93         94          1
+
+SQL> update result set s_id=1 like r_id=6;
+update result set s_id=1 like r_id=6
+                         *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+
+
+SQL> update result set s_id=2 where r_id=7;
+
+1 row updated.
+
+SQL> select*from result;
+
+      R_ID      MARK1      MARK2       S_ID
+---------- ---------- ---------- ----------
+         6         98         99          1
+         7         90         91          2
+         8         90         95          1
+         9         97         87          1
+        10         93         94          1
+
+SQL> update result set s_id=3 where r_id=8;
+
+1 row updated.
+
+SQL> update result set s_id=4 where r_id=9;
+
+1 row updated.
+
+SQL> update result set s_id=5 where r_id=10;
+
+1 row updated.
+
+SQL> select*from result;
+
+      R_ID      MARK1      MARK2       S_ID
+---------- ---------- ---------- ----------
+         6         98         99          1
+         7         90         91          2
+         8         90         95          3
+         9         97         87          4
+        10         93         94          5
+
+SQL> select result.r_id,student.s_id,student.s_name where result.mark1 between 70 and 90;
+select result.r_id,student.s_id,student.s_name where result.mark1 between 70 and 90
+                                               *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select result.r_id,student.s_id,student.s_name or result.mark1 between 70 and 90;
+select result.r_id,student.s_id,student.s_name or result.mark1 between 70 and 90
+                                               *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select r_id,mark2 from result where mark2 between 70 and 90;
+
+      R_ID      MARK2
+---------- ----------
+         9         87
+
+SQL> select r_id,mark2 from result where mark2 between 70 and 100;
+
+      R_ID      MARK2
+---------- ----------
+         6         99
+         7         91
+         8         95
+         9         87
+        10         94
+
+SQL> select r_id,mark2,s_id from result where mark2 between 70 and 100;
+
+      R_ID      MARK2       S_ID
+---------- ---------- ----------
+         6         99          1
+         7         91          2
+         8         95          3
+         9         87          4
+        10         94          5
+
+SQL> select result.r_id,student.s_id,student.s_name where result.mark1 between 70 and 90;
+select result.r_id,student.s_id,student.s_name where result.mark1 between 70 and 90
+                                               *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select result.r_id,result.s_id,result.mark1,student.s_name from student full outer join
+  2  select result.r_id,result.s_id,result.mark1,student.s_name from student full outer join
+  3
+SQL> select result.r_id,result.s_id,result.mark1,student.s_name from student full outer
+  2  join result on student.s_id=result.s_id;
+
+      R_ID       S_ID      MARK1 S_NAME
+---------- ---------- ---------- ------------------------------
+         6          1         98 tamanna
+         7          2         90 urvisha
+         8          3         90 janvi
+         9          4         97 avani
+        10          5         93 semina
+
+SQL> select result.r_id,result.s_id,result.mark1,student.s_name from student full outer
+  2  join result on student.s_id=result.s_id where mark2 between 70 and 90;
+
+      R_ID       S_ID      MARK1 S_NAME
+---------- ---------- ---------- ------------------------------
+         9          4         97 avani
+
+SQL> select result.r_id,result.s_id,result.mark1,student.s_name from student full outer
+  2  join result on student.s_id=result.s_id where mark2 between 70 and 100;
+
+      R_ID       S_ID      MARK1 S_NAME
+---------- ---------- ---------- ------------------------------
+         6          1         98 tamanna
+         7          2         90 urvisha
+         8          3         90 janvi
+         9          4         97 avani
+        10          5         93 semina
+
+SQL> select max(mark2) from result;
+
+MAX(MARK2)
+----------
+        99
+
+SQL> select s_name from student where s_name like 't%';
+
+S_NAME
+------------------------------
+tamanna
+
+SQL>

@@ -1,0 +1,10 @@
+create or replace procedure greetings(num in number)is a number(10) as
+begin
+if mod(num,2)=0
+then
+dbms_output.put_line(num ||'number is even');
+else
+dbms_output.put_line(num||'number is odd');
+end if;
+end;
+/

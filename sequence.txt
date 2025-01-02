@@ -1,0 +1,82 @@
+ create sequence stest1 start with 5 increment by 1 maxvalue 50;
+
+Sequence created.
+
+SQL> alter sequence stest1 increment by 2 maxvalue 50 cycle;
+
+Sequence altered.
+
+SQL> select sequence stest1.nextval from dual;
+select sequence stest1.nextval from dual
+                      *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select sequence stest1 nextval from dual;
+select sequence stest1 nextval from dual
+                       *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select  stest1 nextval from dual;
+select  stest1 nextval from dual
+        *
+ERROR at line 1:
+ORA-00904: "STEST1": invalid identifier
+
+
+SQL> select  stest1.nextval from dual;
+
+   NEXTVAL
+----------
+         6
+
+SQL> select  stest1.currval from dual;
+
+   CURRVAL
+----------
+         6
+
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                                 NUMBER(5)
+ NAME                                               VARCHAR2(10)
+
+SQL> insert into emp values(stest1.nextval,'tamanna');
+
+1 row created.
+
+SQL> insert into emp values(stest1.nextval,'semina');
+
+1 row created.
+
+SQL> insert into emp values(stest1.nextval,'jenshi');
+
+1 row created.
+
+SQL> insert into emp values(stest1.nextval,'janvi');
+
+1 row created.
+
+SQL> insert into emp values(stest1.nextval,'urvisha');
+
+1 row created.
+
+SQL> select * from emp;
+
+        ID NAME
+---------- ----------
+         8 tamanna
+        10 semina
+        12 jenshi
+        14 janvi
+        16 urvisha
+
+SQL> drop  sequence stest1;
+
+Sequence dropped.
+
+SQL>

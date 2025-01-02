@@ -1,0 +1,19 @@
+declare
+  num1 number:=&sub1;
+  num2 number:=&sub2;
+  num3 number:=&sub3;
+begin
+   dbms_output.put_line('number1 mark of:'||num1);
+   dbms_output.put_line('number2 mark of:'||num2);
+   dbms_output.put_line('number3 mark of:'||num3);
+  if(num1>num2 and num1>num3)then
+dbms_output.put_line('number is largest'||num1);
+
+elsif(num2>num1 and num2>num3)then
+dbms_output.put_line('number is largest'||num2);
+
+elsif(num3>num1 and num3>num2)then
+dbms_output.put_line('number is largest'||num3);
+end if;
+end;
+/

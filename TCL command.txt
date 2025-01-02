@@ -1,0 +1,102 @@
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CUSTOMER_ID                                        NUMBER(2)
+ FIRST_NAME                                         VARCHAR2(10)
+ LAST_NAME                                          VARCHAR2(10)
+ AGE                                                NUMBER(3)
+ COUNTRY                                            VARCHAR2(10)
+
+SQL> select *from student;
+
+CUSTOMER_ID FIRST_NAME LAST_NAME         AGE COUNTRY
+----------- ---------- ---------- ---------- ----------
+          1 mitali     gohel              31 usa
+          2 neha       vanmari            22 usa
+          3 sangita    parmar             22 uk
+          4 renu       tank               25 uk
+          5 dipali     jadeja             28 uae
+
+SQL>
+SQL> delete from student where age=28;
+
+1 row deleted.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> delete from student where age=20;
+
+0 rows deleted.
+
+SQL> delete from student where age=20;
+
+0 rows deleted.
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select *from student;
+
+CUSTOMER_ID FIRST_NAME LAST_NAME         AGE COUNTRY
+----------- ---------- ---------- ---------- ----------
+          1 mitali     gohel              31 usa
+          2 neha       vanmari            22 usa
+          3 sangita    parmar             22 uk
+          4 renu       tank               25 uk
+
+SQL> savepoint sp1;
+
+Savepoint created.
+
+SQL> delete from student where age=20;
+
+0 rows deleted.
+
+SQL> savepoint sp2;
+
+Savepoint created.
+
+SQL> update student set first name='mitali' where customer_id=2;
+update student set first name='mitali' where customer_id=2
+                         *
+ERROR at line 1:
+ORA-00927: missing equal sign
+
+
+SQL> update student set first_name='mitali' where customer_id=2;
+
+1 row updated.
+
+SQL> select *from student;
+
+CUSTOMER_ID FIRST_NAME LAST_NAME         AGE COUNTRY
+----------- ---------- ---------- ---------- ----------
+          1 mitali     gohel              31 usa
+          2 mitali     vanmari            22 usa
+          3 sangita    parmar             22 uk
+          4 renu       tank               25 uk
+
+SQL> rollback to sp1;
+
+Rollback complete.
+
+SQL> select *from student;
+
+CUSTOMER_ID FIRST_NAME LAST_NAME         AGE COUNTRY
+----------- ---------- ---------- ---------- ----------
+          1 mitali     gohel              31 usa
+          2 neha       vanmari            22 usa
+          3 sangita    parmar             22 uk
+          4 renu       tank               25 uk
+
+SQL> rollback to sp2;
+rollback to sp2
+*
+ERROR at line 1:
+ORA-01086: savepoint 'SP2' never established in this session or is invalid
+
+
+SQL>

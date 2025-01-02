@@ -1,0 +1,9 @@
+--table space--
+
+select tablespace_name from user_tablespaces;
+
+select tablespace_name,file_name,butes from dba_data_files;
+
+create tablespace test datafile'C:\app\PC_35\oradata\orahome\mydata.dbf'size 10m;
+
+create table emp(no number(4))tablespace test;

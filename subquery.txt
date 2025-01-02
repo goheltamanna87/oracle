@@ -1,0 +1,166 @@
+ create table emp12
+  2  (
+  3  f_name varchar2(10),
+  4  l_name varchar2(10),
+  5  positionn varchar2(20)
+  6  );
+
+Table created.
+
+SQL> select * from emo12;
+select * from emo12
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> desc emp12;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ F_NAME                                             VARCHAR2(10)
+ L_NAME                                             VARCHAR2(10)
+ POSITIONN                                          VARCHAR2(20)
+
+SQL> create table emp13
+  2  (
+  3  f_name varchar2(10),
+  4  l_name varchar2(10),
+  5  positionn varchar2(20)
+  6  );
+
+Table created.
+
+SQL> desc emp13;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ F_NAME                                             VARCHAR2(10)
+ L_NAME                                             VARCHAR2(10)
+ POSITIONN                                          VARCHAR2(20)
+
+SQL> insert all
+  2  into emp12 values('gohel','tamanna','student')
+  3  into emp12 values('parmar','saxi','professor')
+  4  into emp12 values('katudiya','janvi','hod')
+  5  select*from dual;
+
+3 rows created.
+
+SQL> select*from12;
+select*from12
+       *
+ERROR at line 1:
+ORA-00923: FROM keyword not found where expected
+
+
+SQL> select*from emp12;
+
+F_NAME     L_NAME     POSITIONN
+---------- ---------- --------------------
+gohel      tamanna    student
+parmar     saxi       professor
+katudiya   janvi      hod
+
+SQL> insert all
+  2  into emp12 values('mokariya','urvisha','student')
+  3  into emp12 values('jijariya','avani','professor')
+  4  into emp12 values('vanmari','neha','hod')
+  5  select*from dual;
+
+3 rows created.
+
+SQL> select*from emp12;
+
+F_NAME     L_NAME     POSITIONN
+---------- ---------- --------------------
+gohel      tamanna    student
+parmar     saxi       professor
+katudiya   janvi      hod
+mokariya   urvisha    student
+jijariya   avani      professor
+vanmari    neha       hod
+
+6 rows selected.
+
+SQL> delete from emp12 where mokariya;
+delete from emp12 where mokariya
+                               *
+ERROR at line 1:
+ORA-00920: invalid relational operator
+
+
+SQL> delete from emp12 where f_name=mokariya;
+delete from emp12 where f_name=mokariya
+                               *
+ERROR at line 1:
+ORA-00904: "MOKARIYA": invalid identifier
+
+
+SQL> insert all
+  2  into emp13 values('lingadiya','semina','student')
+  3  into emp13 values('sojitra','jensi','professor')
+  4  into emp13 values('vaja','doli','hod')
+  5  select*from dual;
+
+3 rows created.
+
+SQL> select f_name,l_name,position from emp12 minus select f_name,l_name,position from emp13;
+select f_name,l_name,position from emp12 minus select f_name,l_name,position from emp13
+                     *
+ERROR at line 1:
+ORA-00904: "POSITION": invalid identifier
+
+
+SQL> select f_name,l_name,positionn from emp12 minus select f_name,l_name,positionn from emp13;
+
+
+F_NAME     L_NAME     POSITIONN
+---------- ---------- --------------------
+gohel      tamanna    student
+jijariya   avani      professor
+katudiya   janvi      hod
+mokariya   urvisha    student
+parmar     saxi       professor
+vanmari    neha       hod
+
+6 rows selected.
+
+SQL> select f_name,l_name,position from emp12 interset select f_name,l_name,position from emp13
+;
+select f_name,l_name,position from emp12 interset select f_name,l_name,position from emp13
+                                                  *
+ERROR at line 1:
+ORA-00933: SQL command not properly ended
+     select f_name,l_name,positionn from emp12 minus select f_name,l_name,positionn from emp13;
+
+F_NAME     L_NAME     POSITIONN
+---------- ---------- --------------------
+gohel      tamanna    student
+jijariya   avani      professor
+katudiya   janvi      hod
+mokariya   urvisha    student
+parmar     saxi       professor
+vanmari    neha       hod
+
+6 rows selected.
+
+SQL> select f_name,l_name,positionn from emp12 intersect select f_name,l_name,positionn from emp13;
+
+no rows selected
+
+SQL> select f_name,l_name,positionn from emp12 union select f_name,l_name,positionn from emp13;
+
+F_NAME     L_NAME     POSITIONN
+---------- ---------- --------------------
+gohel      tamanna    student
+jijariya   avani      professor
+katudiya   janvi      hod
+lingadiya  semina     student
+mokariya   urvisha    student
+parmar     saxi       professor
+sojitra    jensi      professor
+vaja       doli       hod
+vanmari    neha       hod
+
+9 rows selected.
+
+SQL>

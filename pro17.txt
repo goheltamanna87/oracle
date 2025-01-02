@@ -1,0 +1,17 @@
+*create function
+
+create or replace function adder(h1 in number,h2 in number)return number is h3 number(8);
+begin
+h3:=h1+h2;
+return h3;
+end;
+/
+
+*call function
+ declare
+ h3 number(2);
+begin
+h3:=adder(11,12);
+dbms_output.put_line('added'||h3);
+end;
+/

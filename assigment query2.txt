@@ -1,0 +1,144 @@
+
+SQL*Plus: Release 12.1.0.2.0 Production on Sat Sep 21 07:54:58 2024
+
+Copyright (c) 1982, 2014, Oracle.  All rights reserved.
+
+Enter user-name: system
+Enter password:
+Last Successful login time: Sat Sep 21 2024 07:51:01 +05:30
+
+Connected to:
+Oracle Database 12c Enterprise Edition Release 12.1.0.2.0 - 64bit Production
+With the Partitioning, OLAP, Advanced Analytics and Real Application Testing options
+
+SQL> create table student
+  2  (
+  3  s_id number(3) primary key,
+  4  s_name varchar(30),
+  5  city varchar(30) default 'rajkot'
+  6  );
+
+Table created.
+
+SQL> create table result
+  2
+SQL> create table result
+  2  r_id number(3) primary key,
+  3  mark1 number(3),
+  4  mark2 number(3),
+  5  s_id number(3) references student(s_id)
+  6  );
+r_id number(3) primary key,
+*
+ERROR at line 2:
+ORA-00922: missing or invalid option
+
+
+SQL> create table result
+  2  (
+  3  r_id number(3) primary key,
+  4  mark1 number(3),
+  5  mark2 number(3),
+  6  s_id number(3) references student(s_id)
+  7  );
+
+Table created.
+
+SQL> insert all
+  2      into student values(1,'tamanna','rajkot')
+  3      into student values(2,'urvisha','rajkot')
+  4      into student values(3,'janvi','rajkot')
+  5
+SQL> insert all
+  2   into student values(1,'tamanna','rajkot')
+  3   into student values(2,'urvisha','rajkot')
+  4   into student values(3,'janvi','rajkot')
+  5  select * from dual;
+
+3 rows created.
+
+SQL> insert all
+  2  into result values(6,81,85,1)
+  3  into result values(7,82,86,2)
+  4  into result values(8,83,87,3)
+  5  select * from dual;
+
+3 rows created.
+
+SQL> select student.s_id,student.s_name,result.r_id,result.mark1 from student full outer
+  2  join result on student.s_id = result.s_id where mark1 between 70 and 90;
+
+      S_ID S_NAME                               R_ID      MARK1
+---------- ------------------------------ ---------- ----------
+         1 tamanna                                 6         81
+         2 urvisha                                 7         82
+         3 janvi                                   8         83
+
+SQL> select max(mark2) from result;
+
+MAX(MARK2)
+----------
+        87
+
+SQL> select s_name from student where s_name like 'd%';
+
+no rows selected
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMO_ID                                             NUMBER(5)
+ EMP_NAME                                           VARCHAR2(50)
+ EMP_DESIG                                          VARCHAR2(40)
+ EMO_SAL                                            NUMBER(5)
+ EMP_EMAIL                                          VARCHAR2(50)
+
+SQL> drop table employee;
+
+Table dropped.
+
+SQL> create table employee
+  2  (
+  3  emp_no number(5) primary key,
+  4  emp_name varchar2(10),
+  5  city varchar2(10),
+  6  mgr_no number(5),
+  7  job varchar2(10),
+  8  sal number(10),
+  9  dep_no number(5)
+ 10  );
+
+Table created.
+
+SQL> insert all
+  2  into employee values(1,'tamanna','rajkot',10,'hod',30000,7)
+  3  into employee values(2,'urvisha','rajkot',11,'hod',15000,7)
+  4  into employee values(3,'janvi','rajkot',12,'techars',10000,9)
+  5  into employee values(3,'semina','rajkot',13,'techars',11000,9)
+  6  into employee values(5,'jenshi','rajkot',14,'programer',12000,6)
+  7  select * from dual;
+insert all
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SYSTEM.SYS_C0010310) violated
+
+
+SQL> insert all
+  2  into employee values(1,'tamanna','rajkot',10,'hod',30000,7)
+  3  into employee values(2,'urvisha','rajkot',11,'hod',15000,7)
+  4  into employee values(3,'janvi','rajkot',12,'techars',10000,9)
+  5  into employee values(4,'semina','rajkot',13,'techars',11000,9)
+  6  into employee values(5,'jenshi','rajkot',14,'programer',12000,6)
+  7  select * from dual;
+
+5 rows created.
+
+SQL> select avg(sal) from employee group by job;
+
+  AVG(SAL)
+----------
+     10500
+     12000
+     22500
+
+SQL>

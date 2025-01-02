@@ -1,0 +1,18 @@
+*create procedure:
+
+create or replace procedure greetings as
+begin
+dbms_output.put_line('mjkacc');
+end;
+/
+
+*execution/call produre:
+execute greetings;
+
+or
+
+begin
+          greetings;
+end;
+/
+        

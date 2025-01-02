@@ -1,0 +1,21 @@
+declare
+c_id customer55.id % type;
+c_name customer55.name % type;
+c_sal customer55.salary % type;
+
+cursor c_customer55 is select id,name,salary from customer55;
+begin
+  open c_customer55;
+loop
+fetch c_customer55 into c_id,c_name,c_sal;
+exit when c_customer55 % notfound;
+dbms_output.put_line(c_id||'*'||c_name||'*'||c_sal);
+end loop;
+close c_customer55;
+end;
+/
+1*tamanna*50500
+2*janvi*31000
+1*avani*50500
+
+PL/SQL procedure successfully completed.

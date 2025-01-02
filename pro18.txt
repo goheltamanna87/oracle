@@ -1,0 +1,18 @@
+create table emp
+(
+empno number(6),
+ename varchar(20)
+);
+
+
+
+declare--declare variable using %type attribute
+empid emp.empno%type;
+empname emp.ename%type;
+begin
+   empid:=1001;
+empname:='tamanna';
+dbms_output.put_line('employee id:'||empid);
+dbms_output.put_line('employee name:'||empname);
+end;
+/

@@ -1,0 +1,141 @@
+create view vw_emp as select empno,ename from emp;
+create view vw_emp as select empno,ename from emp
+                                   *
+ERROR at line 1:
+ORA-00904: "ENAME": invalid identifier
+
+
+SQL> desc emp;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ SAL                                                NUMBER(34)
+
+SQL> drop table emp;
+
+Table dropped.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ CUSTOMER_ID                                        NUMBER(2)
+ FIRST_NAME                                         VARCHAR2(10)
+ LAST_NAME                                          VARCHAR2(10)
+ AGE                                                NUMBER(3)
+ COUNTRY                                            VARCHAR2(10)
+
+SQL> create view vw_stu as select customer_id,first_name from student;
+
+View created.
+
+SQL> select * from vw_stu;
+
+CUSTOMER_ID FIRST_NAME
+----------- ----------
+          1 mitali
+          2 neha
+          3 sangita
+          4 renu
+
+SQL> insert into vw_stu values (5,'dipali');
+
+1 row created.
+
+SQL> select * from vw_stu;
+
+CUSTOMER_ID FIRST_NAME
+----------- ----------
+          5 dipali
+          1 mitali
+          2 neha
+          3 sangita
+          4 renu
+
+SQL> update vw_stu set first_name='nitya' where customer_id=5;
+
+1 row updated.
+
+SQL> select * from vw_stu;
+
+CUSTOMER_ID FIRST_NAME
+----------- ----------
+          5 nitya
+          1 mitali
+          2 neha
+          3 sangita
+          4 renu
+
+SQL> delete from vw_stu where customer_id=5;
+
+1 row deleted.
+
+SQL> select * from vw_stu;
+
+CUSTOMER_ID FIRST_NAME
+----------- ----------
+          1 mitali
+          2 neha
+          3 sangita
+          4 renu
+
+SQL> select vw_stu from all_views;
+select vw_stu from all_views
+       *
+ERROR at line 1:
+ORA-00904: "VW_STU": invalid identifier
+
+
+SQL> select vw_stu from all_views;
+select vw_stu from all_views
+       *
+ERROR at line 1:
+ORA-00904: "VW_STU": invalid identifier
+
+
+SQL> select vw_stu from all_view;
+select vw_stu from all_view
+                   *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> desc emp;
+ERROR:
+ORA-04043: object emp does not exist
+
+
+SQL> desc emp1;
+ERROR:
+ORA-04043: object emp1 does not exist
+
+
+SQL> create table emp
+  2  (
+  3  id number(1),
+  4  name varchar(20)
+  5  );
+
+Table created.
+
+SQL> create view vw_emp as id,name from emp;
+create view vw_emp as id,name from emp
+                      *
+ERROR at line 1:
+ORA-00928: missing SELECT keyword
+
+
+SQL> create view vw_emp as select id,name from emp;
+
+View created.
+
+SQL> select vw_emp from all_views;
+select vw_emp from all_views
+       *
+ERROR at line 1:
+ORA-00904: "VW_EMP": invalid identifier
+
+
+SQL> drop view vw_stu;
+
+View dropped.
+
+SQL>

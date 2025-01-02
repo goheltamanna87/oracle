@@ -1,0 +1,47 @@
+create or replace trigger trig_store before delete or insert or update on emp for each row
+begin
+  if updating then
+insert into emp2 values(:old.id,:old.name,:old.salary);
+elsif deleting then
+insert into emp2 values(:old.id,:old.name,:old.salary);
+end if;
+end;
+/
+
+Trigger created.
+
+SQL> update emp set name='tamanna' where id='1';
+old salary:40000
+new salary:40000
+salary difference:0
+record updated
+
+1 row updated.
+
+SQL> update emp set salary='50000' where id='1';
+old salary:40000
+new salary:50000
+salary difference:10000
+record updated
+
+1 row updated.
+
+SQL> select * from emp;
+
+        ID NAME                     SALARY
+---------- -------------------- ----------
+         1 tamanna                   50000
+         2 avni                      25000
+         3 janvi                     40000
+
+SQL> select * from emp2;
+
+        ID NAME                     SALARY
+---------- -------------------- ----------
+         4 riya                      30000
+         5 jiya                      25000
+         6 miya                      40000
+         1 tamanna                   40000
+         1 tamanna                   40000
+
+SQL>

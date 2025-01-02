@@ -1,0 +1,9 @@
+--write PL/SQL program to demonstrate variable.
+
+declare
+           test varchar(10);
+begin
+    test:=20;
+dbms_output.put_line(test);
+end;
+/

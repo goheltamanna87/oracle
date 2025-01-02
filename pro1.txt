@@ -1,0 +1,6 @@
+--write PL/SQL block for print your college name.
+
+begin
+dbms_output.put_line('mjkacc');
+end;
+/

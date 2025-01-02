@@ -1,0 +1,14 @@
+ create snapshot ss1 as select id,name from emp;
+
+Materialized view created.
+
+SQL> select * from ss1;
+
+        ID NAME
+---------- ------------------------------
+         1 hina
+         2 mina
+
+SQL> drop snapshot ss1;
+
+Materialized view dropped.

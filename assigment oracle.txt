@@ -1,0 +1,275 @@
+
+                       * Table create
+
+create table dept
+(
+deptno numeric(2) primary key,
+dname varchar(14) not null,
+loc varchar(13)
+);
+
+
+ create table emp
+(
+empno numeric(4) primary key,
+ename varchar(10) not null,
+job varchar(9),
+mgr number(4),
+hiredate varchar(20),
+sal numeric(7,2),
+comm numeric(7,2),
+deptno numeric(2) not null references dept(deptno)
+);
+
+
+create table salgrade
+(
+grade numeric,
+losal numeric,
+hisal numeric
+);
+                                     *insert data in table
+
+#table dept:
+
+insert all
+into dept  values(10,'accounting','new york')
+into dept values(20,'research','dallas')
+into dept values(30,'sales','chicago')
+into dept values(40,'operations','boston')
+select*from dual;
+
+#table salgrade:
+
+insert all
+into salgrade values(1,700,1200)
+into salgrade values(2,1201,1400)
+into salgrade values(3,1401,2000)
+into salgrade values(4,2001,3000)
+into salgrade values(5,3001,9999)
+select*from dual;
+
+#table emp;
+
+insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7369,'smith','clerk',7902,'17-dec-80',800,20);
+
+insert all
+into emp values(7499,'allen','salesman',7698,'20-feb-81',1600,300,30)
+into emp values(7521,'ward','salesman',7698,'22-feb-81',1250,500,30)
+select*from dual;
+
+ insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7566,'jones','manager',7839,'02-apr-81',2975,20);
+
+insert into emp values(7654,'martin','salesman',7698,'28-sep-81',1250,1400,30);
+ 
+insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7698,'blake','manager',7839,'01-may-81',2850,30);
+
+insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7782,'clark','manager',7839,'09-jun-81',2450,10);
+
+ insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7788,'scott','analyst',7566,'19-apr-87',3000,20);
+
+ insert into emp(empno,ename,job,hiredate,sal,deptno) values(7839,'king','president','17-nov-81',5000,10);
+
+ insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7844,'turner','salesman',7698,'08-sep-81',1500,30);
+
+ insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7876,'adams','clerk',7788,'23-may-87',1100,20);
+
+insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7900,'james','clerk',7698,'03-dec-81',950,30);
+
+insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7902,'ford','analyst',7566,'03-dec-81',3000,20);
+
+ insert into emp(empno,ename,job,mgr,hiredate,sal,deptno) values(7934,'miller','clerk',7782,'23-jan-82',1300,10);
+
+                                 
+                                        *assignment 1:
+1.select * from emp;
+2.desc emp;
+3.select * from tabs;
+4. select empno from emp;
+5. select ename,job from emp;
+6.select comm from emp;
+7.select deptno from emp;
+8. select deptno from emp;
+9. select empno,ename,job,mgr from emp;
+10.select ename,mgr from emp;
+11.select job,comm from emp;
+12. select ename,deptno from emp;
+13. select deptno,ename,sal,job from emp;
+14.select deptno,dname from dept;
+15. select grade from salgrade;
+16.select losal,hisal,grade from salgrade;
+
+
+                                      *assignment 2:
+1. select * from emp where job='manager';
+2.select * from emp where job='president';
+3. select * from emp where job='manager' or job='clerk';
+4. select * from emp where job='manager' and deptno=10;
+5.select * from emp where deptno=10;
+6.select * from emp where not deptno=20 or not deptno=30 or not deptno=40 and not job='manager';
+7.select * from emp where deptno=10 and job='manager' or job='analyst';
+8.select * from emp where job not in('President', 'Analyst', 'Salesman');
+9.select * from emp where deptno=10 and job='clerk';
+
+                                        *assignment 3:
+
+1.alter table emp rename column ename to tamanna;
+2. alter table emp rename column sal to salaries;
+3.alter table emp rename column tamanna to employeename;
+ alter table emp rename column job to designation;
+4. select  designation,salaries+100 from emp where  designation='manager';
+5.select employeename,salaries+100,salaries-4500 from emp;
+6. select employeename,SALARIES+100 as sal from emp where employeename='scott';
+7.select ename,sal+500,sal-300,sal/100 from emp;
+8.select ename,sal *5/100 as sal from emp;
+9. select  job, sal*8/100 as  sal from emp where  job='salesman';
+10. select job,sal*2 as sal from emp where job='manager';
+11.select ename,sal/30 as daily_wage from emp;
+12.select sal*12 as aaasal from emp;
+13.select empno||' '|| ename as employees from emp;
+14.select ename||' '|| job as comp_name from emp;
+15. select ename||'is'||job||'and he is working in deptno'||deptno||'since'||to_char(hiredate)as employee_info from emp;
+16. select (sal*12)+NVL(comm,0)as total_annual_salary from emp;
+17. select distinct deptno from emp;
+18.select distinct deptno,job from emp;
+19.select * from  emp where job='manager' and comm is null;
+20.select * from  emp where  comm is not null;
+21.select distinct job from emp;
+22.select count(distinct job) as total_jobs from emp;
+
+                                               *assignment 4:
+
+1.select hiredate from emp order by hiredate desc;
+2.select hiredate from emp order by hiredate asc;
+3.select deptno,dname from dept where deptno>20;
+4.select empno,ename,sal,comm from emp where comm>sal;
+5.select empno,ename,sal,comm from emp where comm<sal;
+6.select empno,ename,sal from emp where sal between 500 and 1500;
+7.select empno,ename,job,sal,mgr from emp where mgr in(7902,7566,7788);
+8.select empno,ename,job,sal,mgr from emp where mgr between 7092 and 7788;
+9. select * from emp where ename like's%';
+10.select * from emp where ename='scott';
+11.select * from emp where length(ename)=5 and job='manager';
+12.select * from emp where mgr is null;
+13.select * from emp where job not like'a%';
+14.select * from emp where mgr is not null;
+15.select * from emp where job in('manager','clerk')and deptno=10;
+16.select * from emp where job in('manager','salesman')and sal>1500;
+17.select job,avg(sal)as average_salary from emp group by job;
+18.select avg(sal)as average_salary from emp where job <> 'manager';select 19.deptno,job,avg(sal)as average_salary from emp group by deptno,job order by deptno,job;
+20.select deptno,avg(sal)as average_salary from emp group by deptno order by deptno;
+21.select job,avg(sal)as average_salary,sum(sal)as total_salary from emp where job not in('salesmen','clerk','manager')group by job order by job;
+
+                                                    *assignment 5:
+
+1. select abs(-18)as absolute_value from dual;
+2. select abs(30)as absolute_value from dual;
+3. select ceil(22.5)as celing_value from dual;
+4. select ceil(31.2)as celing_value from dual;
+5.SELECT FLOOR(37.2) FROM dual;
+
+6 SELECT LOWER('tamanna') FROM dual;
+
+7.SELECT 3 * 2 AS source_of_6 FROM dual;
+
+8.SELECT SUBSTR(ename, 1, 1) AS first_char, SUBSTR(ename, 2, 1) AS second_char FROM emp;
+SELECT SUBSTR(ENAME, 1, 1) AS first_char, SUBSTR(ENAME, 2, 1) AS second_char FROM emp;
+
+9.SELECT EXTRACT(YEAR FROM GREATEST(date1, date2)) AS higher_year FROM emp;
+
+10.SELECT ename, SOUNDEX(ename) AS soundex_code FROM emp;
+
+11.SELECT ename, SOUNDEX(ename) AS soundex_code FROM emp WHERE ename = 'Allen';
+
+12.SELECT MIN(sal) AS min_salary FROM emp;
+
+13.SELECT MAX(sal) AS max_salary FROM emp;
+
+14.SELECT ename, LENGTH(ename) AS name_length FROM emp;
+
+15.SELECT job, LENGTH(job) AS job_length FROM emp;
+
+16.SELECT ename, VSIZE(ename) AS vsize_in_bytes FROM emp;
+
+17.SELECT ASCII('2') AS ascii_value FROM dual;
+
+18.SELECT ROWID, ename FROM emp;
+
+19.SELECT USER AS current_user FROM dual;
+SELECT USERENV('SESSION_USER') AS session_user FROM dual;
+
+20.SELECT USER AS current_username FROM dual;
+SELECT SESSION_USER AS current_username FROM dual;
+
+21.SELECT ename, VSIZE(ename) AS vsize_in_bytes FROM emp WHERE deptno = 10;
+
+22.SELECT SUM(sal) AS total_salary FROM emp;
+
+23.SELECT ename, sal, CASE WHEN sal < 3000 THEN 'A' WHEN sal BETWEEN 3000 AND 6000 THEN 'B' WHEN sal > 6000 THEN 'C' ELSE 'Not Assigned' END AS grade FROM emp;
+
+24.SELECT e.* FROM emp e JOIN dept d ON e.deptno = d.deptno WHERE d.loc = 'New York';
+25.SELECT * FROM emp WHERE dname = 'Accounting';
+
+26.SELECT ename, sal * 12 + NVL(comm, 0) AS annual_salary FROM emp;
+
+27.SELECT ename, sal * 12 AS annual_salary FROM emp;
+
+28.SELECT e.* FROM emp e JOIN dept d ON e.deptno = d.deptno WHERE d.dname = 'Sales';
+
+29.SELECT e.* FROM emp e JOIN dept d ON e.deptno = d.deptno WHERE d.dname = 'Accounting' AND d.loc = 'New York';
+
+30.SELECT e.* FROM emp e JOIN dept d ON e.deptno = d.deptno WHERE d.loc = 'Chicago';
+
+31.SELECT manager.* FROM empl e JOIN emp manager ON e.empno =7788 WHERE e.ename= 'Scott';
+
+32.SELECT manager.* FROM emp e JOIN emp manager ON e.empno = 7698 WHERE e.ename = 'blake';
+
+33.SELECT e.* FROM emp e WHERE e.salary > ( SELECT salary FROM employees WHERE first_name = 'Jones' );
+
+34.SELECT d.* FROM dept d LEFT JOIN emp e ON d.deptno = e.deptno
+WHERE e.empno IS NULL;
+
+35.SELECT * FROM emp WHERE deptno = 10 UNION SELECT * FROM emp WHERE deptno= 30;
+
+36.SELECT * FROM emp WHERE deptno = 10 INTERSECT SELECT * FROM emp WHERE deptno = 30;
+
+37.SELECT * FROM emp WHERE deptno = 10 MINUS SELECT * FROM emp WHERE deptno= 30;
+
+38.SELECT ename, salary FROM emp WHERE salary = ( SELECT MIN(salary) FROM emp );
+
+39.SELECT * FROM emp WHERE job = ( SELECT job FROM emp WHERE ename = 'Blake' );
+
+40.SELECT deptno, empno, salary FROM ( SELECT deptno, empno, salary, RANK() OVER (PARTITION BY deptno ORDER BY salary) AS rnk FROM emp) WHERE rnk <= 3 ORDER BY deptno, salary;
+
+41.SELECT deptno FROM emp GROUP BY deptno HAVING AVG(salary) > ( SELECT AVG(salary) FROM emp WHERE deptno = 30 );
+
+42.SELECT * FROM emp WHERE deptno= 10 AND job IN ( SELECT job FROM emp WHERE deptno= (SELECT deptno FROM dept WHERE dname = 'Sales') );
+
+43.SELECT * FROM emp e WHERE salary > ( SELECT AVG(salary) FROM emp WHERE deptno = e.deptno ) ORDER BY deptno;
+
+44.SELECT * FROM emp WHERE salary > ALL ( SELECT salary FROM emp WHERE deptno = 30 );
+
+45.SELECT job, AVG(salary) AS average_salary FROM emp GROUP BY job ORDER BY average_salary DESC FETCH FIRST 1 ROW ONLY;
+
+46.SELECT * FROM emp WHERE job = ( SELECT job FROM emp WHERE ename = 'Jones' ) OR salary >= ( SELECT salary FROM emp WHERE ename = 'Ford' ) ORDER BY job, salary;
+
+47.SELECT LEVEL AS tree_level, LPAD(' ', 2 * (LEVEL - 1)) || e.ename || ' ' ||  AS employee_name, m.ename || ' ' || AS ename FROM emp e LEFT JOIN emp m ON empno = m.empno START WITH empnoIS NULL -- Start from top-level managers (who do not have managers) CONNECT BY PRIOR e.empno = e.empno ORDER BY LEVEL, e.empno, e.ename;
+
+48.SELECT LEVEL AS employee_level, LPAD(' ', 2 * (LEVEL - 1)) || e.first_name || ' ' || e.last_name AS employee_name, NVL(m.first_name || ' ' || m.last_name, 'No Manager') AS manager_name FROM employees e LEFT JOIN employees m ON e.manager_id = m.employee_id START WITH e.manager_id IS NULL -- Start from top-level employees (no managers) CONNECT BY PRIOR e.employee_id = e.manager_id ORDER BY employee_level, employee_name;
+
+49.SELECT LEVEL AS employee_level, AVG(salary) AS average_salary FROM employees START WITH manager_id IS NULL -- Start from top-level employees (no managers) CONNECT BY PRIOR employee_id = manager_id GROUP BY LEVEL ORDER BY employee_level;
+
+                      *assignment 6:
+1.desc emp;
+2.select sysdate from dual;
+3.select count(ename) from emp;
+4.select sum(sal) from emp;
+5.
+6.
+7.select avg(sal) from emp;
+8.
+9.select min(sal) from emp;
+   select max(sal) from emp;
+
+
+ 

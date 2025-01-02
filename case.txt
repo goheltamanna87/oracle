@@ -1,0 +1,42 @@
+# PL/SQL Block for Arithmetic Operations
+
+DECLARE
+    v_num1 NUMBER;
+    v_num2 NUMBER;
+    v_result NUMBER;
+    v_operation VARCHAR2(10);
+BEGIN
+    -- Dynamic input for numbers and operation
+    v_num1 := &num1;
+    v_num2 := &num2;
+    v_operation := '&operation';
+
+    CASE v_operation
+        WHEN '1' THEN
+            v_result := v_num1 + v_num2;
+DBMS_OUTPUT.PUT_LINE('Result addition: ' || v_result);
+
+        WHEN '2' THEN
+            v_result := v_num1 - v_num2;
+DBMS_OUTPUT.PUT_LINE('Result subtraction: ' || v_result);
+
+        WHEN '3' THEN
+            v_result := v_num1 * v_num2;
+DBMS_OUTPUT.PUT_LINE('Result multiplication: ' || v_result);
+
+        WHEN '4' THEN
+            IF v_num2 != 0 THEN
+                v_result := v_num1 / v_num2;
+DBMS_OUTPUT.PUT_LINE('Result division: ' || v_result);
+ ELSE
+                DBMS_OUTPUT.PUT_LINE('Error: Division by zero');
+                RETURN;
+            END IF;
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('Error: Invalid operation');
+            RETURN;
+    END CASE;
+
+    
+END;
+/

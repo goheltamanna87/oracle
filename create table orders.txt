@@ -1,0 +1,189 @@
+create table orders
+  2  (
+  3  order_id number(3)
+  4  item varchar2(10)
+  5  amount number(5)
+  6  customer_id number(5)
+  7  );
+item varchar2(10)
+*
+ERROR at line 4:
+ORA-00907: missing right parenthesis
+
+
+SQL> create table orders
+  2  (
+  3  order_id number(3)
+  4  item varchar2(10)
+  5
+SQL> create table orders
+  2  (
+  3  order_id number(3),
+  4  item varchar2(10),
+  5  amount number(5),
+  6  customer_id number(5)
+  7  );
+
+Table created.
+
+SQL> create table customers
+  2
+SQL>
+SQL> select*from customers;
+
+no rows selected
+
+SQL> create table customers
+  2  (
+  3  customer_id number(5),
+  4  first_name varchar2(10),
+  5  last_name varchar2(10),
+  6  age number(3),
+  7  country varchar2(5)
+  8  );
+create table customers
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> create table customers
+  2  (
+  3  cust_id number(5),
+  4  first_name varchar2(10),
+  5  last_name varchar2(10),
+  6  age number(3),
+  7  country varchar2(5)
+  8  );
+create table customers
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> create table customers
+  2  (
+  3  user_id number(5),
+  4  first_name varchar2(10),
+  5  last_name varchar2(10),
+  6  age number(3),
+  7  country varchar2(5)
+  8  );
+create table customers
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> create table customers23
+  2  (
+  3  customer_id number(5),
+  4  first_name varchar2(10),
+  5  last_name varchar2(10),
+  6  age number(3),
+  7  country varchar2(5)
+  8  );
+create table customers23
+             *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> create table user
+  2  (
+  3  drop table customers;
+create table user
+             *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> drop table customers;
+
+Table dropped.
+
+SQL> create table customers
+  2  (
+  3  customer_id number(5),
+  4  last_name varchar2(10),
+  5  last_name varchar2(10),
+  6
+SQL> create table customers
+  2  (
+  3  customer_id number(5),
+  4  first_name varchar2(10),
+  5  last_name varchar2(10),
+  6  age number(3),
+  7  country varchar2(5)
+  8  );
+
+Table created.
+
+SQL> insert into orders values(1,'keyboard',400,4);
+
+1 row created.
+
+SQL> insert into orders values(2,'mouse',300,4);
+
+1 row created.
+
+SQL> insert into orders values(3,'monitors',12000,3);
+
+1 row created.
+
+SQL> insert into orders values(4,'keyboard',400,1);
+
+1 row created.
+
+SQL> insert into orders values(5,'mousepad',250,2);
+
+1 row created.
+
+SQL> select * from orders;
+
+  ORDER_ID ITEM           AMOUNT CUSTOMER_ID
+---------- ---------- ---------- -----------
+         1 keyboard          400           4
+         2 mouse             300           4
+         3 monitors        12000           3
+         4 keyboard          400           1
+         5 mousepad          250           2
+
+SQL> insert into customers values(1,'riddhi','vyas',31,usa);
+insert into customers values(1,'riddhi','vyas',31,usa)
+                                                  *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> insert into customers values(1,'riddhi','vyas',31,'usa');
+
+1 row created.
+
+SQL> insert into customers values(2,'bhavisha','talsaniya',22,'usa');
+
+1 row created.
+
+SQL> insert into customers values(3,'shital','dudhatra',22,'uk');
+
+1 row created.
+
+SQL> insert into customers values(4,'payal','marviya',25,'uk');
+
+1 row created.
+
+SQL> insert into customers values(5,'mansi','joshi',28,'uae');
+
+1 row created.
+
+SQL> select * from customers;
+
+CUSTOMER_ID FIRST_NAME LAST_NAME         AGE COUNT
+----------- ---------- ---------- ---------- -----
+          1 riddhi     vyas               31 usa
+          2 bhavisha   talsaniya          22 usa
+          3 shital     dudhatra           22 uk
+          4 payal      marviya            25 uk
+          5 mansi      joshi              28 uae
+
+SQL>
